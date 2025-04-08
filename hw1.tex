@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+% Page layout
+\geometry{margin=0.75in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ian Gallagher}
+\lhead{Math 207C Homework}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+% Environments
+\newtheoremstyle{problemstyle}
+  {1em} % Space above
+  {1em} % Space below
+  {\normalfont} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font
+  {} % Punctuation after theorem head
+  {\newline} % Space after theorem head
+  {} % Theorem head spec
+
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}
+
+% Custom commands
+\newenvironment{solution}
+  {\noindent\textbf{Solution}\quad}
+  {\hfill$\blacksquare$\par\vspace{1em}}
+
+% Enumerate styles
+\setlist[enumerate,1]{label=(\alph*), ref=\alph*, itemsep=0.2em, topsep=0.4em}
+\setlist[enumerate,2]{label=(\roman*), ref=\roman*, itemsep=0.1em, topsep=0.2em}
+
+% Title info
+\title{Math 207C Homework \#\texttt{1}}
+\author{Ian Gallagher}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\noindent Holmes Ex \#1.1, 1.3, 1.5, 1.7, 1.12, 1.18 (a)(e)(h)(p), 1.19, 1.20, 1.21
+
+% Example Problem Format
+\begin{problem}[1.1]
+\mbox{} % Add empty box to force a newline for the enumerate
+\begin{enumerate}
+  \item What values of $\alpha$, if any, yield 
+        \(
+        f = O\bigl(\varepsilon^\alpha\bigr)
+        \)
+        as $\varepsilon \downarrow 0$ for each of the following functions?
+\begin{multicols}{2}
+  \begin{enumerate}
+    \item $f = \sqrt{1 + \varepsilon^2}$ 
+    \item $f = \varepsilon \sin(\varepsilon)$ 
+    \item $f = \bigl(1 - e^\varepsilon)^{-1}$
+    \item $f = \ln(1 + \varepsilon)$
+    \item $f = \varepsilon \ln(\varepsilon)$
+    \item $f = \sin(1 / \varepsilon)$
+    \item $f = \sqrt{x + \varepsilon}\text{, where } 0 \geq x \geq 1$ \newline\mbox{}
+  \end{enumerate}
+\end{multicols}
+\item For the functions listed in (a), what values of $\alpha$, if any, yield
+      \(
+      f = o\bigl(\varepsilon^\alpha\bigr)
+      \)
+      as $\varepsilon \downarrow 0$?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+\end{solution}
+
+\begin{problem}[1.3]
+This problem establishes some of the basic properties of the order symbols, some of which are used
+extensively in this book. The limit assumed here is $\varepsilon \downarrow 0$.
+\begin{enumerate}
+\item If $f = o(g)$ and $g = O(h)$, or if $f = O(g)$ and $g = o(h)$, then show that $f = o(h)$. Note
+  that this result can be written as $o(O(h)) = O(o(h)) = o(h)$.
+\item Assuming $f = O(\phi_1)$ and $g = O(\phi_2)$, show that $f + g = O(\vert \phi_1 \vert  + \vert
+  \phi_2 \vert)$. Also, explain why the absolute signs are necessary. Note that this result can be
+  written as $O(f) + O(g) = O(|f| + |g|)$.
+\item Assuming $f = O(\phi_1)$ and $g = O(\phi_2)$, show that $fg = O(\phi_1 \phi_2)$. This result
+  can be written as $O(f) O(g) = O(fg)$.
+\item Show that $O(O(f)) = O(f)$.
+\item Show that $O(f)o(g) = o(f)o(g) = o(fg)$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}{1.5}
+Suppose $f=o(\phi)$ for small $\varepsilon$, where $f$ and $\phi$ are continuous.
+\begin{enumerate}
+  \item Give an example to show that it is not necessarily true that
+    \[ \int_0^\varepsilon f \mathrm{d} \varepsilon = o\left(\int_0^\varepsilon \phi \mathrm{d}
+    \varepsilon \right).\]
+  \item Show that 
+    \[ \int_0^\varepsilon f \mathrm{d} \varepsilon = o\left(\int_0^\varepsilon \vert \phi \vert
+    \mathrm{d} \varepsilon \right).\]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[1.7]
+Assuming $f \sim a_1 \varepsilon^\alpha + a_2 \varepsilon^\beta + \cdots$, find $\alpha, \beta$
+(with $\alpha < \beta$) and nonzero $a_1, a_2$ for the following functions:
+\begin{enumerate}
+  \item $\displaystyle f = \frac{1}{1 - e^{\varepsilon}}$.
+  \item $\displaystyle f = \left[1 + \frac{1}{\cos(\varepsilon)}\right]^{\frac{3}{2}}$.
+  \item $\displaystyle f = 1 + \varepsilon - 2\ln\left(1 + \varepsilon\right) - \frac{1}{1 + \varepsilon}$.
+  \item $\displaystyle f = \sinh\left(\sqrt{1 + \varepsilon x}\right) \text{, for } 0 < x < \infty$.
+  \item $\displaystyle f = \left(1 + \varepsilon x\right)^{\frac{1}{\varepsilon}} \text{, for } 0 < x < \infty$.
+  \item $\displaystyle f = \int_{0}^{\varepsilon} \sin\left(x + \varepsilon x^{2}\right)dx$.
+  \item $\displaystyle f = \displaystyle \sum_{n=1}^{\infty} \left(\frac{1}{2}\right)^n 
+              \sin\left(\frac{\varepsilon}{n}\right)$.
+  \item $\displaystyle \int_0^\varepsilon \sin(x + \varepsilon x^2) \mathrm{d}x$.
+  \item $\displaystyle f = \int_0^1 \frac{\mathrm{d}x}{\varepsilon + x(x-1)}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[1.18]
+  Find a two-term asymptotic expansion, for small $\varepsilon$, of each solution $x$ of the
+  following equations:
+  \begin{enumerate}
+    \item $x^2 + x - \varepsilon = 0$
+    \item[(e)] $\varepsilon x^3 -x + \varepsilon = 0$
+    \item[(h)] $x^2 + \varepsilon \sqrt{2+x} = \cos(\varepsilon)$
+    \item[(p)] $xe^{-x} = \varepsilon$
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}[1.19]
+  This problem considers the equation $1 + \sqrt{x^2 + \varepsilon} = e^x$.
+  \begin{enumerate}
+    \item Explain why there is one real root for small $\varepsilon$.
+    \item Find a two-term expansion of the root.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}[1.20]
+  In this problem you should sketch the fucntions in each equation and then use this to determine
+  the number and approximate location of the real-valued solutions. With this, find a three-term
+  asymptotic expansion, for small $\varepsilon$, of the nonzero solutions.
+  \begin{enumerate}
+    \item $x = \tanh \left(\frac{x}{\varepsilon}\right)$,
+    \item $x = \tan\left(\frac{x}{\varepsilon}\right)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}[1.21]
+  To determine the natural frequencies of an elastic string, one is faced with solving the equation
+  $\tan(\lambda) = \lambda$.
+  \begin{enumerate}
+    \item After sketching the two functions in this equation on the same graph explain why there is
+      an infinite number of solutions.
+    \item To find an asymptotic expansion of the large solutions of the equation, assume that
+      $\lambda \sim \varepsilon^{-\alpha}(\lambda_0 + \varepsilon^\beta\lambda_1$. Find
+      $\varepsilon, \alpha, \beta, \lambda_0, \lambda_1$ (note that $\lambda_0$ and $\lambda_1$ are
+      nonzero and $\beta > 0$).
+  \end{enumerate}
+\end{problem}
+
+\end{document}
+
