@@ -20,6 +20,9 @@
 \rfoot{\thepage}
 \setlength{\headheight}{14pt}
 
+% Command
+\newcommand{\vep}{\varepsilon}
+
 % Environments
 \newtheoremstyle{problemstyle}
   {1em} % Space above
@@ -60,34 +63,55 @@
 \begin{enumerate}
   \item What values of $\alpha$, if any, yield 
         \(
-        f = O\bigl(\varepsilon^\alpha\bigr)
+        f = O\bigl(\vep^\alpha\bigr)
         \)
-        as $\varepsilon \downarrow 0$ for each of the following functions?
-\begin{multicols}{2}
-  \begin{enumerate}
-    \item $f = \sqrt{1 + \varepsilon^2}$ 
-    \item $f = \varepsilon \sin(\varepsilon)$ 
-    \item $f = \bigl(1 - e^\varepsilon)^{-1}$
-    \item $f = \ln(1 + \varepsilon)$
-    \item $f = \varepsilon \ln(\varepsilon)$
-    \item $f = \sin(1 / \varepsilon)$
-    \item $f = \sqrt{x + \varepsilon}\text{, where } 0 \geq x \geq 1$ \newline\mbox{}
-  \end{enumerate}
-\end{multicols}
+        as $\vep \downarrow 0$ for each of the following functions?
+  \begin{multicols}{2}
+    \begin{enumerate}
+      \item $f = \sqrt{1 + \vep^2}$ 
+      \item $f = \vep \sin(\vep)$ 
+      \item $f = \bigl(1 - e^\vep)^{-1}$
+      \item $f = \ln(1 + \vep)$
+      \item $f = \vep \ln(\vep)$
+      \item $f = \sin(1 / \vep)$
+      \item $f = \sqrt{x + \vep}\text{, where } 0 \geq x \geq 1$ \newline\mbox{}
+    \end{enumerate}
+  \end{multicols}
 \item For the functions listed in (a), what values of $\alpha$, if any, yield
       \(
-      f = o\bigl(\varepsilon^\alpha\bigr)
+      f = o\bigl(\vep^\alpha\bigr)
       \)
-      as $\varepsilon \downarrow 0$?
+      as $\vep \downarrow 0$?
 \end{enumerate}
 \end{problem}
 
 \begin{solution}
+  \begin{enumerate}[label=(\roman*)]
+    \item We can expand by plugging $x^2$ into the Taylor series for $\sqrt{1+x}$:
+      \[ f = \sqrt{1 + \vep^2} = 1 + \frac{1}{2}\vep^2 + o(\vep^4). \]
+      Now, taking the ratio of limits we get,
+      \[ \lim_{\vep \downarrow 0} \frac{f}{\vep^\alpha} = \lim_{\vep \downarrow 0}
+        \left(\vep^{-\alpha} + \frac{1}{2}\vep^{2-\alpha} + o(\vep^{4-\alpha}) \right) =
+        \begin{cases}
+        \infty, & \alpha > 0 \\
+        1 , & \alpha = 0 \\
+        0 , & \alpha < 0 
+      \end{cases}\]
+      Therefore, $f = O(\vep^\alpha)$ for $\alpha \leq 0$ and $f = o(\vep^\alpha)$ for $\alpha < 0$
+    \item Now, we can expand sine into its Taylor series
+      \[ f = \vep \sin(\vep) = \vep \left( \vep - \frac{\vep^3}{3!} + o(\vep^5) \right) = \vep^2 -
+      \frac{\vep^4}{3!} + o(\vep^5) \]
+      For similar reasons as above, we have that $f = O(\vep^\alpha)$ and $f = o(\vep^\alpha)$ for
+      $\alpha \leq 2$.
+    \item For this, we can use another Taylor series truncation $e^x = 1 + x + o(x^2)$
+      
+
+  \end{enumerate}
 \end{solution}
 
 \begin{problem}[1.3]
 This problem establishes some of the basic properties of the order symbols, some of which are used
-extensively in this book. The limit assumed here is $\varepsilon \downarrow 0$.
+extensively in this book. The limit assumed here is $\vep \downarrow 0$.
 \begin{enumerate}
 \item If $f = o(g)$ and $g = O(h)$, or if $f = O(g)$ and $g = o(h)$, then show that $f = o(h)$. Note
   that this result can be written as $o(O(h)) = O(o(h)) = o(h)$.
@@ -101,50 +125,91 @@ extensively in this book. The limit assumed here is $\varepsilon \downarrow 0$.
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+  \begin{enumerate}
+    \item For the first case, the following holds for all $\delta_1$ and some constants $C,
+      \vep_1, \vep_2$
+      \[ \vert f(\vep) \vert \leq \delta_1 \vert g(\vep) \vert,  \text{ for } 0 < \vep < \vep_1 \]
+      and
+      \[ \vert g(\vep) \vert \leq C \vert h(\vep) \vert, \text{ for } 0 < \vep < \vep_2 \]
+      Therefore,
+      \[ \vert f(\vep) \vert \leq \delta \vert h(\vep) \vert, \text{ for } 0 < \vep <
+      \min\{\vep_1, \vep_2\} \]
+      where $\delta = C \delta_1$. Since $\delta_1$ is arbitrary, for any $\delta > 0$, we can set
+      $\delta_1 = \delta / C$ and we may conclude that $f = o(h)$.
+
+      Similarly, for all $\delta_1'$ and some constants $C', \vep_1', \vep_2'$ 
+      \[ \vert f(\vep) \vert \leq C' \vert g(\vep) \vert,  \text{ for } 0 < \vep < \vep_1' \]
+      and
+      \[ \vert g(\vep) \vert \leq \delta_1' \vert h(\vep) \vert, \text{ for } 0 < \vep < \vep_2' \]
+      Therefore,
+      \[ \vert f(\vep) \vert \leq \delta' \vert h(\vep) \vert, \text{ for } 0 < \vep <
+      \min\{\vep_1', \vep_2'\} \]
+      where $\delta' = C' \delta_1'$ and we may conclude that $f = o(h)$ in the same way. 
+    \item Assuming $f = O(\phi_1), g = O(\phi_2)$, there exists constants $C_1,C_2,\vep_1,\vep_2$
+      such that
+      \begin{align*}
+        \vert f(\vep) \vert & \leq C_1 \vert \phi_1(\vep) \vert, 0 < \vep < \vep_1 \\
+        \vert g(\vep) \vert & \leq C_2 \vert \phi_2(\vep) \vert, 0 < \vep < \vep_2
+      \end{align*}
+      Therefore,
+      \begin{align*}
+        \vert (f + g)(\vep) \vert 
+          & = \vert f(\vep) + g(\vep) \vert \\
+          & \leq \vert f(\vep) \vert + \vert g(\vep) \vert \\
+          & \leq C_1 \vert \phi_1(\vep) \vert + C_2 \vert \phi_2(\vep) \vert \\
+          & \leq C \left( \vert \phi_1(\vep) \vert + \vert \phi_2(\vep) \vert \right) \\
+      \end{align*}
+      holds for $C = \max\{C_1, C_2\}$ and $0 < \vep < \min\{\vep_1, \vep_2\}$.
+      Therefore, $f + g = O(\vert \phi_1 \vert + \vert \phi_2 \vert)$. The necessity of the absolute
+      values are evident from the last inequality.
+  \end{enumerate} 
+\end{solution}
+
 \begin{problem}{1.5}
-Suppose $f=o(\phi)$ for small $\varepsilon$, where $f$ and $\phi$ are continuous.
+Suppose $f=o(\phi)$ for small $\vep$, where $f$ and $\phi$ are continuous.
 \begin{enumerate}
   \item Give an example to show that it is not necessarily true that
-    \[ \int_0^\varepsilon f \mathrm{d} \varepsilon = o\left(\int_0^\varepsilon \phi \mathrm{d}
-    \varepsilon \right).\]
+    \[ \int_0^\vep f \mathrm{d} \vep = o\left(\int_0^\vep \phi \mathrm{d}
+    \vep \right).\]
   \item Show that 
-    \[ \int_0^\varepsilon f \mathrm{d} \varepsilon = o\left(\int_0^\varepsilon \vert \phi \vert
-    \mathrm{d} \varepsilon \right).\]
+    \[ \int_0^\vep f \mathrm{d} \vep = o\left(\int_0^\vep \vert \phi \vert
+    \mathrm{d} \vep \right).\]
 \end{enumerate}
 \end{problem}
 
 \begin{problem}[1.7]
-Assuming $f \sim a_1 \varepsilon^\alpha + a_2 \varepsilon^\beta + \cdots$, find $\alpha, \beta$
+Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta$
 (with $\alpha < \beta$) and nonzero $a_1, a_2$ for the following functions:
 \begin{enumerate}
-  \item $\displaystyle f = \frac{1}{1 - e^{\varepsilon}}$.
-  \item $\displaystyle f = \left[1 + \frac{1}{\cos(\varepsilon)}\right]^{\frac{3}{2}}$.
-  \item $\displaystyle f = 1 + \varepsilon - 2\ln\left(1 + \varepsilon\right) - \frac{1}{1 + \varepsilon}$.
-  \item $\displaystyle f = \sinh\left(\sqrt{1 + \varepsilon x}\right) \text{, for } 0 < x < \infty$.
-  \item $\displaystyle f = \left(1 + \varepsilon x\right)^{\frac{1}{\varepsilon}} \text{, for } 0 < x < \infty$.
-  \item $\displaystyle f = \int_{0}^{\varepsilon} \sin\left(x + \varepsilon x^{2}\right)dx$.
+  \item $\displaystyle f = \frac{1}{1 - e^{\vep}}$.
+  \item $\displaystyle f = \left[1 + \frac{1}{\cos(\vep)}\right]^{\frac{3}{2}}$.
+  \item $\displaystyle f = 1 + \vep - 2\ln\left(1 + \vep\right) - \frac{1}{1 + \vep}$.
+  \item $\displaystyle f = \sinh\left(\sqrt{1 + \vep x}\right) \text{, for } 0 < x < \infty$.
+  \item $\displaystyle f = \left(1 + \vep x\right)^{\frac{1}{\vep}} \text{, for } 0 < x < \infty$.
+  \item $\displaystyle f = \int_{0}^{\vep} \sin\left(x + \vep x^{2}\right)dx$.
   \item $\displaystyle f = \displaystyle \sum_{n=1}^{\infty} \left(\frac{1}{2}\right)^n 
-              \sin\left(\frac{\varepsilon}{n}\right)$.
-  \item $\displaystyle \int_0^\varepsilon \sin(x + \varepsilon x^2) \mathrm{d}x$.
-  \item $\displaystyle f = \int_0^1 \frac{\mathrm{d}x}{\varepsilon + x(x-1)}$.
+              \sin\left(\frac{\vep}{n}\right)$.
+  \item $\displaystyle \int_0^\vep \sin(x + \vep x^2) \mathrm{d}x$.
+  \item $\displaystyle f = \int_0^1 \frac{\mathrm{d}x}{\vep + x(x-1)}$.
 \end{enumerate}
 \end{problem}
 
 \begin{problem}[1.18]
-  Find a two-term asymptotic expansion, for small $\varepsilon$, of each solution $x$ of the
+  Find a two-term asymptotic expansion, for small $\vep$, of each solution $x$ of the
   following equations:
   \begin{enumerate}
-    \item $x^2 + x - \varepsilon = 0$
-    \item[(e)] $\varepsilon x^3 -x + \varepsilon = 0$
-    \item[(h)] $x^2 + \varepsilon \sqrt{2+x} = \cos(\varepsilon)$
-    \item[(p)] $xe^{-x} = \varepsilon$
+    \item $x^2 + x - \vep = 0$
+    \item[(e)] $\vep x^3 -x + \vep = 0$
+    \item[(h)] $x^2 + \vep \sqrt{2+x} = \cos(\vep)$
+    \item[(p)] $xe^{-x} = \vep$
   \end{enumerate}
 \end{problem}
 
 \begin{problem}[1.19]
-  This problem considers the equation $1 + \sqrt{x^2 + \varepsilon} = e^x$.
+  This problem considers the equation $1 + \sqrt{x^2 + \vep} = e^x$.
   \begin{enumerate}
-    \item Explain why there is one real root for small $\varepsilon$.
+    \item Explain why there is one real root for small $\vep$.
     \item Find a two-term expansion of the root.
   \end{enumerate}
 \end{problem}
@@ -152,10 +217,10 @@ Assuming $f \sim a_1 \varepsilon^\alpha + a_2 \varepsilon^\beta + \cdots$, find 
 \begin{problem}[1.20]
   In this problem you should sketch the fucntions in each equation and then use this to determine
   the number and approximate location of the real-valued solutions. With this, find a three-term
-  asymptotic expansion, for small $\varepsilon$, of the nonzero solutions.
+  asymptotic expansion, for small $\vep$, of the nonzero solutions.
   \begin{enumerate}
-    \item $x = \tanh \left(\frac{x}{\varepsilon}\right)$,
-    \item $x = \tan\left(\frac{x}{\varepsilon}\right)$.
+    \item $x = \tanh \left(\frac{x}{\vep}\right)$,
+    \item $x = \tan\left(\frac{x}{\vep}\right)$.
   \end{enumerate}
 \end{problem}
 
@@ -166,8 +231,8 @@ Assuming $f \sim a_1 \varepsilon^\alpha + a_2 \varepsilon^\beta + \cdots$, find 
     \item After sketching the two functions in this equation on the same graph explain why there is
       an infinite number of solutions.
     \item To find an asymptotic expansion of the large solutions of the equation, assume that
-      $\lambda \sim \varepsilon^{-\alpha}(\lambda_0 + \varepsilon^\beta\lambda_1$. Find
-      $\varepsilon, \alpha, \beta, \lambda_0, \lambda_1$ (note that $\lambda_0$ and $\lambda_1$ are
+      $\lambda \sim \vep^{-\alpha}(\lambda_0 + \vep^\beta\lambda_1$. Find
+      $\vep, \alpha, \beta, \lambda_0, \lambda_1$ (note that $\lambda_0$ and $\lambda_1$ are
       nonzero and $\beta > 0$).
   \end{enumerate}
 \end{problem}
