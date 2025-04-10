@@ -7,8 +7,6 @@
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{mathtools}
-\usepackage{tikz}
-\usepackage{hyperref}
 \usepackage{multicol}
 
 % Page layout
@@ -20,8 +18,11 @@
 \rfoot{\thepage}
 \setlength{\headheight}{14pt}
 
-% Command
+% Commands
 \newcommand{\vep}{\varepsilon}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
 
 % Environments
 \newtheoremstyle{problemstyle}
@@ -57,7 +58,6 @@
 
 \noindent Holmes Ex \#1.1, 1.3, 1.5, 1.7, 1.12, 1.18 (a)(e)(h)(p), 1.19, 1.20, 1.21
 
-% Example Problem Format
 \begin{problem}[1.1]
 \mbox{} % Add empty box to force a newline for the enumerate
 \begin{enumerate}
@@ -109,13 +109,14 @@
   \end{enumerate}
 \end{solution}
 
+\newpage
 \begin{problem}[1.3]
 This problem establishes some of the basic properties of the order symbols, some of which are used
 extensively in this book. The limit assumed here is $\vep \downarrow 0$.
 \begin{enumerate}
 \item If $f = o(g)$ and $g = O(h)$, or if $f = O(g)$ and $g = o(h)$, then show that $f = o(h)$. Note
   that this result can be written as $o(O(h)) = O(o(h)) = o(h)$.
-\item Assuming $f = O(\phi_1)$ and $g = O(\phi_2)$, show that $f + g = O(\vert \phi_1 \vert  + \vert
+\item Assuming $f = O(\phi_1)$ and $g = O(\phi_2)$, show that $f + g = O(\abs{\phi_1}  + \vert
   \phi_2 \vert)$. Also, explain why the absolute signs are necessary. Note that this result can be
   written as $O(f) + O(g) = O(|f| + |g|)$.
 \item Assuming $f = O(\phi_1)$ and $g = O(\phi_2)$, show that $fg = O(\phi_1 \phi_2)$. This result
@@ -129,43 +130,70 @@ extensively in this book. The limit assumed here is $\vep \downarrow 0$.
   \begin{enumerate}
     \item For the first case, the following holds for all $\delta_1$ and some constants $C,
       \vep_1, \vep_2$
-      \[ \vert f(\vep) \vert \leq \delta_1 \vert g(\vep) \vert,  \text{ for } 0 < \vep < \vep_1 \]
+      \[ \abs{f(\vep)} \leq \delta_1 \abs{g(\vep)},  \text{ for } 0 < \vep < \vep_1 \]
       and
-      \[ \vert g(\vep) \vert \leq C \vert h(\vep) \vert, \text{ for } 0 < \vep < \vep_2 \]
+      \[ \abs{g(\vep)} \leq C \abs{h(\vep)}, \text{ for } 0 < \vep < \vep_2 \]
       Therefore,
-      \[ \vert f(\vep) \vert \leq \delta \vert h(\vep) \vert, \text{ for } 0 < \vep <
+      \[ \abs{f(\vep)} \leq \delta \abs{h(\vep)}, \text{ for } 0 < \vep <
       \min\{\vep_1, \vep_2\} \]
       where $\delta = C \delta_1$. Since $\delta_1$ is arbitrary, for any $\delta > 0$, we can set
       $\delta_1 = \delta / C$ and we may conclude that $f = o(h)$.
 
       Similarly, for all $\delta_1'$ and some constants $C', \vep_1', \vep_2'$ 
-      \[ \vert f(\vep) \vert \leq C' \vert g(\vep) \vert,  \text{ for } 0 < \vep < \vep_1' \]
+      \[ \abs{f(\vep)} \leq C' \abs{g(\vep)},  \text{ for } 0 < \vep < \vep_1' \]
       and
-      \[ \vert g(\vep) \vert \leq \delta_1' \vert h(\vep) \vert, \text{ for } 0 < \vep < \vep_2' \]
+      \[ \abs{g(\vep)} \leq \delta_1' \abs{h(\vep)}, \text{ for } 0 < \vep < \vep_2' \]
       Therefore,
-      \[ \vert f(\vep) \vert \leq \delta' \vert h(\vep) \vert, \text{ for } 0 < \vep <
+      \[ \abs{f(\vep)} \leq \delta' \abs{h(\vep)}, \text{ for } 0 < \vep <
       \min\{\vep_1', \vep_2'\} \]
       where $\delta' = C' \delta_1'$ and we may conclude that $f = o(h)$ in the same way. 
     \item Assuming $f = O(\phi_1), g = O(\phi_2)$, there exists constants $C_1,C_2,\vep_1,\vep_2$
       such that
       \begin{align*}
-        \vert f(\vep) \vert & \leq C_1 \vert \phi_1(\vep) \vert, 0 < \vep < \vep_1 \\
-        \vert g(\vep) \vert & \leq C_2 \vert \phi_2(\vep) \vert, 0 < \vep < \vep_2
+        \abs{f(\vep)} & \leq C_1 \abs{\phi_1(\vep)}, \quad 0 < \vep < \vep_1 \\
+        \abs{g(\vep)} & \leq C_2 \abs{\phi_2(\vep)}, \quad 0 < \vep < \vep_2
       \end{align*}
       Therefore,
       \begin{align*}
-        \vert (f + g)(\vep) \vert 
-          & = \vert f(\vep) + g(\vep) \vert \\
-          & \leq \vert f(\vep) \vert + \vert g(\vep) \vert \\
-          & \leq C_1 \vert \phi_1(\vep) \vert + C_2 \vert \phi_2(\vep) \vert \\
-          & \leq C \left( \vert \phi_1(\vep) \vert + \vert \phi_2(\vep) \vert \right) \\
+        \abs{(f + g)(\vep)} 
+          & = \abs{f(\vep) + g(\vep)} \\
+          & \leq \abs{f(\vep)} + \abs{g(\vep)} \\
+          & \leq C_1 \abs{\phi_1(\vep)} + C_2 \abs{\phi_2(\vep)} \\
+          & \leq C \left( \abs{\phi_1(\vep)} + \abs{\phi_2(\vep)} \right) \\
       \end{align*}
       holds for $C = \max\{C_1, C_2\}$ and $0 < \vep < \min\{\vep_1, \vep_2\}$.
-      Therefore, $f + g = O(\vert \phi_1 \vert + \vert \phi_2 \vert)$. The necessity of the absolute
+      Therefore, $f + g = O(\abs{\phi_1} + \abs{\phi_2})$. The necessity of the absolute
       values are evident from the last inequality.
+    \item Assuming $f = O(\phi_1), g = O(\phi_2)$, there exists constants $C_1,C_2,\vep_1,\vep_2$
+      such that
+      \begin{align*}
+        \abs{f(\vep)} & \leq C_1 \abs{\phi_1(\vep)}, \quad 0 < \vep < \vep_1 \\
+        \abs{g(\vep)} & \leq C_2 \abs{\phi_2(\vep)}, \quad 0 < \vep < \vep_2
+      \end{align*}
+      Therefore,
+      \begin{align*}
+        \abs{(fg)(\vep)} 
+          & = \abs{f(\vep)g(\vep)} \\
+          & = \abs{f(\vep)}\abs{g(\vep)} \\
+          & \leq C_1 \abs{\phi_1(\vep)} \cdot C_2 \abs{\phi_2(\vep)} \\
+          & = C \abs{\phi_1(\vep)\phi_2(\vep)} \\
+      \end{align*}
+      holds for $C = C_1 C_2$ and $0 < \vep < \min\{\vep_1, \vep_2\}$.
+      Therefore, $fg = O(\phi_1\phi_2)$.
+    \item Assuming $f = O(\phi)$, there exists constants $C,\vep_1$ such that
+      \[ \abs{f(\vep)} \leq C \abs{\phi(\vep)}, \quad 0 < \vep < \vep_1 \]
+      Therefore,
+      \begin{align*}
+        \abs{O(f)(\vep)} 
+          & = \abs{O(\phi(\vep))} \\
+          & = O(\abs{\phi(\vep)}) \\
+          & = O(f(\vep)) \\
+      \end{align*}
+      holds for $0 < \vep < \vep_1$.
   \end{enumerate} 
 \end{solution}
-
+ 
+\newpage
 \begin{problem}{1.5}
 Suppose $f=o(\phi)$ for small $\vep$, where $f$ and $\phi$ are continuous.
 \begin{enumerate}
@@ -173,11 +201,12 @@ Suppose $f=o(\phi)$ for small $\vep$, where $f$ and $\phi$ are continuous.
     \[ \int_0^\vep f \mathrm{d} \vep = o\left(\int_0^\vep \phi \mathrm{d}
     \vep \right).\]
   \item Show that 
-    \[ \int_0^\vep f \mathrm{d} \vep = o\left(\int_0^\vep \vert \phi \vert
+    \[ \int_0^\vep f \mathrm{d} \vep = o\left(\int_0^\vep \abs{\phi}
     \mathrm{d} \vep \right).\]
 \end{enumerate}
 \end{problem}
-
+   
+\newpage
 \begin{problem}[1.7]
 Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta$
 (with $\alpha < \beta$) and nonzero $a_1, a_2$ for the following functions:
@@ -195,6 +224,7 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
 \end{enumerate}
 \end{problem}
 
+\newpage
 \begin{problem}[1.18]
   Find a two-term asymptotic expansion, for small $\vep$, of each solution $x$ of the
   following equations:
@@ -206,6 +236,7 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
   \end{enumerate}
 \end{problem}
 
+\newpage
 \begin{problem}[1.19]
   This problem considers the equation $1 + \sqrt{x^2 + \vep} = e^x$.
   \begin{enumerate}
@@ -214,8 +245,9 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
   \end{enumerate}
 \end{problem}
 
+\newpage
 \begin{problem}[1.20]
-  In this problem you should sketch the fucntions in each equation and then use this to determine
+  In this problem you should sketch the functions in each equation and then use this to determine
   the number and approximate location of the real-valued solutions. With this, find a three-term
   asymptotic expansion, for small $\vep$, of the nonzero solutions.
   \begin{enumerate}
@@ -224,6 +256,7 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
   \end{enumerate}
 \end{problem}
 
+\newpage
 \begin{problem}[1.21]
   To determine the natural frequencies of an elastic string, one is faced with solving the equation
   $\tan(\lambda) = \lambda$.
