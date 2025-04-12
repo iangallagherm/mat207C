@@ -20,9 +20,7 @@
 
 % Commands
 \newcommand{\vep}{\varepsilon}
-
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
-
 
 % Environments
 \newtheoremstyle{problemstyle}
@@ -70,7 +68,7 @@
     \begin{enumerate}
       \item $f = \sqrt{1 + \vep^2}$ 
       \item $f = \vep \sin(\vep)$ 
-      \item $f = \bigl(1 - e^\vep)^{-1}$
+      \item $f = \bigl(1 - e^\vep\bigr)^{-1}$
       \item $f = \ln(1 + \vep)$
       \item $f = \vep \ln(\vep)$
       \item $f = \sin(1 / \vep)$
@@ -88,22 +86,54 @@
 \begin{solution}
   \begin{enumerate}[label=(\roman*)]
     \item We can expand by plugging $x^2$ into the Taylor series for $\sqrt{1+x}$:
-      \[ f = \sqrt{1 + \vep^2} = 1 + \frac{1}{2}\vep^2 + o(\vep^4). \]
+      \[ f = \sqrt{1 + \vep^2} = 1 + \frac{1}{2}\vep^2 - \frac{1}{8}\vep^4 + \cdots. \]
       Now, taking the ratio of limits we get,
       \[ \lim_{\vep \downarrow 0} \frac{f}{\vep^\alpha} = \lim_{\vep \downarrow 0}
-        \left(\vep^{-\alpha} + \frac{1}{2}\vep^{2-\alpha} + o(\vep^{4-\alpha}) \right) =
+        \left(\vep^{-\alpha} + \frac{1}{2}\vep^{2-\alpha} - \frac{1}{8}\vep^{4-\alpha} + \cdots \right) =
         \begin{cases}
-        \infty, & \alpha > 0 \\
-        1 , & \alpha = 0 \\
-        0 , & \alpha < 0 
-      \end{cases}\]
+          \infty, & \alpha > 0 \\
+          1 , & \alpha = 0 \\
+          0 , & \alpha < 0 
+        \end{cases}\]
       Therefore, $f = O(\vep^\alpha)$ for $\alpha \leq 0$ and $f = o(\vep^\alpha)$ for $\alpha < 0$
     \item Now, we can expand sine into its Taylor series
-      \[ f = \vep \sin(\vep) = \vep \left( \vep - \frac{\vep^3}{3!} + o(\vep^5) \right) = \vep^2 -
-      \frac{\vep^4}{3!} + o(\vep^5) \]
-      For similar reasons as above, we have that $f = O(\vep^\alpha)$ and $f = o(\vep^\alpha)$ for
-      $\alpha \leq 2$.
-    \item For this, we can use another Taylor series truncation $e^x = 1 + x + o(x^2)$
+      \[ f = \vep \sin(\vep) = \vep \left( \vep - \frac{\vep^3}{3!} + \cdots \right) = \vep^2 -
+      \frac{\vep^4}{3!} + \cdots \]
+      For similar reasons as above, we have that $f = O(\vep^\alpha)$ for $\alpha \leq 2$
+      and $f = o(\vep^\alpha)$ for $\alpha < 2$.
+    \item For this, we can use another Taylor series expansion $e^x = 1 + x + \frac{x^2}{2} + \cdots$
+      The following then holds
+      \begin{align*}
+        f & = \frac{1}{1 - e^\vep} \\
+          & = \frac{1}{-\vep - \frac{\vep^2}{2} - \cdots} \\
+          & = -\frac{1}{\vep} \cdot \frac{1}{1 + \left( \frac{\vep}{2} + \cdots \right)} \\
+          & = -\frac{1}{\vep}  - \frac{1}{2} + \cdots
+      \end{align*}
+      It follows that $f = O(\vep^\alpha)$ for $\alpha \leq -1$
+      and $f = o(\vep^\alpha)$ for $\alpha < -1$.
+    \item Use the Taylor series expansion for $\ln(1+x)$:
+      \[ f = \ln(1 + \vep) = \vep - \frac{\vep^2}{2} + \frac{\vep^3}{3} - \cdots \]
+      Therefore, $f = O(\vep^\alpha)$ for $\alpha \leq 1$ and $f = o(\vep^\alpha)$ for $\alpha < 1$.
+    \item For $f = \vep \ln(\vep)$ 
+      Start by setting up the limit and then apply L'Hospital's rule:
+      \begin{align*}
+        \lim_{\vep \downarrow 0} \frac{\vep \ln(\vep)}{\vep^\alpha} 
+          & = \lim_{\vep \downarrow 0} \frac{\ln(\vep)}{\vep^{\alpha - 1}} \\
+          & = \lim_{\vep \downarrow 0} \frac{\frac{1}{\vep}}{(\alpha - 1) \vep^{\alpha - 2}} \\
+          & = \lim_{\vep \downarrow 0} \frac{1}{(\alpha - 1) \vep^{\alpha - 1}}. \\
+      \end{align*}
+      So we have that $f = O(\vep^\alpha)$ for $\alpha < 1$ and $f = o(\vep^\alpha)$ for $\alpha
+      < 1$.
+    \item Set up the limit
+      \[ \lim_{\vep \downarrow 0} \left\vert \frac{\sin(1/\vep)}{\vep^\alpha} \right\vert \leq
+      \lim_{\vep \downarrow 0} \vep^{-\alpha}. \]
+      which is finite and thus $f = O(\vep^\alpha)$ for $\alpha \leq 0$. It is zero when $\alpha <
+      0$, so $f = o(\vep^\alpha)$ there.
+    \item If $x = 0$ then $f = \vep^{1/2}$ and is $O(\vep^\alpha)$ for $\alpha \leq 1/2$. Similarly,
+      $f = o(\vep^\alpha)$ for $\alpha < 1/2$.
+
+      For $x \neq 0$ then $\sqrt{x + \vep} = \sqrt{x} + \frac{1}{2\sqrt{x}}\vep + \cdots$ and we
+      find that $f = O(\vep^\alpha)$ for $\alpha \leq 1$ and $f = o(\vep^\alpha)$ for $\alpha < 1$.
       
 
   \end{enumerate}
@@ -180,16 +210,29 @@ extensively in this book. The limit assumed here is $\vep \downarrow 0$.
       \end{align*}
       holds for $C = C_1 C_2$ and $0 < \vep < \min\{\vep_1, \vep_2\}$.
       Therefore, $fg = O(\phi_1\phi_2)$.
-    \item Assuming $f = O(\phi)$, there exists constants $C,\vep_1$ such that
-      \[ \abs{f(\vep)} \leq C \abs{\phi(\vep)}, \quad 0 < \vep < \vep_1 \]
+    \item For this we need to show that
+      \[\abs{O(f(\vep)} \leq C \abs{O(f(\vep)} \]
+      for some constant $C$ and $\vep$ in the same range as above. Equality holds for $C = 1$ and
+      we are done.
+    \item Assuming $f = O(\phi_1), g = o(\phi_2)$, there exists constants $C,\vep_1,\vep_2$
+      such that, for all $\delta' > 0$,
+      \begin{align*}
+        \abs{f(\vep)} & \leq C \abs{\phi_1(\vep)}, \quad 0 < \vep < \vep_1 \\
+        \abs{g(\vep)} & \leq \delta' \abs{\phi_2(\vep)}, \quad 0 < \vep < \vep_2
+      \end{align*}
       Therefore,
       \begin{align*}
-        \abs{O(f)(\vep)} 
-          & = \abs{O(\phi(\vep))} \\
-          & = O(\abs{\phi(\vep)}) \\
-          & = O(f(\vep)) \\
+        \abs{(fg)(\vep)} 
+          & = \abs{f(\vep)g(\vep)} \\
+          & = \abs{f(\vep)}\abs{g(\vep)} \\
+          & \leq C \abs{\phi_1(\vep)} \delta' \abs{\phi_2(\vep)} \\
+          & = \delta_1 \abs{\phi_1(\vep)} \delta_2 \abs{\phi_2(\vep)} \\
+          & = \delta \abs{\phi_1(\vep)\phi_2(\vep)}
       \end{align*}
-      holds for $0 < \vep < \vep_1$.
+      holds for $0 < \vep < \min\{\vep_1, \vep_2\}$ and all possible choices $\delta_1, \delta_2$
+      where we left $\delta' = \frac{\delta_1 \delta_2}{C}$ or $\delta' = \frac{\delta}{C}$ in the
+      last line. This suffices to show that $O(f)o(g) = o(f)o(g) = o(fg)$.
+
   \end{enumerate} 
 \end{solution}
  
@@ -205,6 +248,23 @@ Suppose $f=o(\phi)$ for small $\vep$, where $f$ and $\phi$ are continuous.
     \mathrm{d} \vep \right).\]
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  \begin{enumerate}
+    \item This could be accomplished with functions that are oscillatory as $\vep$ approaches 0 and
+      affect the decay rate after integrating. I thought about this for some time and think
+      something with $\sin(1/\vep)$ could work but couldn't figure it out.
+    \item If $f = o(\phi)$ then $\abs{f(\vep)} \leq \delta \abs{\phi(\vep)}$ for all $\delta > 0$
+      and $0 < \vep < \vep_1$ for some $\vep_1$. The following then holds
+      \begin{align*}
+        \left\vert \int_0^\vep f \mathrm{d}{\vep} \right\vert
+          &\leq \int_0^\vep \left\vert f \right\vert \mathrm{d}{\vep} \\
+          &\leq \int_0^\vep \left\vert \delta \phi \right\vert \mathrm{d}{\vep} \\
+          &\leq \delta \int_0^\vep \left\vert\phi \right\vert \mathrm{d}{\vep}
+      \end{align*}
+      and we are done since this implies $f = o(\phi)$.
+  \end{enumerate}
+\end{solution}
    
 \newpage
 \begin{problem}[1.7]
@@ -219,10 +279,182 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
   \item $\displaystyle f = \int_{0}^{\vep} \sin\left(x + \vep x^{2}\right)dx$.
   \item $\displaystyle f = \displaystyle \sum_{n=1}^{\infty} \left(\frac{1}{2}\right)^n 
               \sin\left(\frac{\vep}{n}\right)$.
-  \item $\displaystyle \int_0^\vep \sin(x + \vep x^2) \mathrm{d}x$.
-  \item $\displaystyle f = \int_0^1 \frac{\mathrm{d}x}{\vep + x(x-1)}$.
+  \item $\displaystyle f = \prod_{k=0}^{n} (1 + \varepsilon k)$ where $n$ is a positive integer.
+  \item $\displaystyle f = \int_0^\pi \frac{\sin(x)}{\sqrt{1 + \vep x}} \mathrm{d}x$.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  \begin{enumerate}
+    \item First we substitute the Taylor expansion for $e^\vep$ into the denominator:
+      \begin{align*}
+        f & \sim \frac{1}{1 - \left(1 + \vep + \frac{\vep^2}{2} + \cdots \right)} \\
+          & \sim \frac{1}{-\vep - \frac{\vep^2}{2} - \cdots} \\
+          & \sim -\frac{1}{\vep} \cdot \frac{1}{1 + \left( \frac{\vep}{2} + \cdots \right)} \\
+          & \sim -\frac{1}{\vep} \cdot \left(1 - \frac{\vep}{2} + \cdots \right), \text{ by Taylor
+            expansion of } \frac{1}{1+x} \\
+          & \sim -\frac{1}{\vep} + \frac{1}{2} + \cdots
+      \end{align*}
+      Therefore, $\alpha = -1, a_1 = -1, \beta = 0, a_2 = 1/2$.
+    \item Apply the Taylor expansion of $\cos(\vep)$:
+      \begin{align*}
+        f & \sim \left(1 + \frac{1}{1 - \frac{\vep^2}{2} + \cdots}\right)^{\frac{3}{2}} \\
+          & \sim \left(2 + \frac{\vep^2}{2} + \cdots\right)^{\frac{3}{2}} \\
+          & \sim 2^{\frac{3}{2}} \left(1 + \frac{\vep^2}{4} + \cdots\right)^{\frac{3}{2}} \\
+          & \sim 2^{\frac{3}{2}} \left(1 + \frac{3}{2}\frac{\vep^2}{4} + \cdots\right) \\
+          & \sim 2^{\frac{3}{2}} \left(1 + \frac{3\vep^2}{8} + \cdots\right) \\
+      \end{align*}
+      Therefore, $\alpha = 0, a_1 = 2^{\frac{3}{2}}, \beta = 2, a_2 = 2^{-\frac{3}{2}}3$.
+    \item Apply the Taylor expansion of $\ln(1+x)$ and $\frac{1}{1+x}$:
+      \begin{align*}
+        f &\sim 1 + \vep - 2\left(\vep - \frac{\vep^2}{2} + \frac{\vep^3}{3} - \frac{\vep^4}{4} +
+            \cdots \right) \\
+          & \quad \quad \quad - \left(1 - \vep + \vep^2 - \vep^3 + \vep^4 - \cdots \right) \\
+          & \sim \frac{1}{3}\vep^3 - \frac{1}{2}\vep^4 + \cdots \\ 
+      \end{align*}
+      Therefore, $\alpha = 3, a_1 = \frac{1}{3}, \beta = 4, a_2 = -\frac{1}{2}$.
+    \item Here it is easier to compute the Taylor coefficients directly: 
+      \begin{align*}
+        f(x, 0) & = \sinh(1) \\
+        \frac{\mathrm{d}}{\mathrm{d}\vep} f(x, \vep) & = \cosh\left( \sqrt{1 + \vep x}\right ) \cdot
+          \frac{x}{2\sqrt{ 1 + \vep x }} \\
+        \frac{\mathrm{d}}{\mathrm{d}\vep} f(x, 0) & = \frac{\cosh(1) x}{2} \\
+      \end{align*}
+      Therefore, $\alpha = 0, a_1 = \sinh(1), \beta = 1, a_2 = \frac{\cosh(1) x}{2}$.
+    \item We can make the change of variables $y = \frac{1}{\vep}$ to get
+      \begin{align*}
+        a_1 &= \lim_{\vep \downarrow 0} \left(1 + \vep x\right)^{\frac{1}{\vep}} \\
+            & = \lim_{y \to \infty} \left(1 + \frac{x}{y} \right)^y \\
+            & = e^x
+      \end{align*}
+      Then we can find the next asymptotic term:
+      \begin{align*}
+        a_2 & = \lim_{\vep \downarrow 0} \frac{f(\vep) - a_1}{\vep} \\
+            & = \lim_{\vep \downarrow 0} \frac{ ( 1 + \vep x )^\frac{1}{\vep} - e^x}{\vep} \\
+            & = \lim_{y \to \infty} y \left[ \left( 1 + \frac{x}{y} \right)^y - e^x \right] \\
+            & = \lim_{y \to \infty} y \left[ \exp\left(y\ln(1 + \tfrac{x}{y})\right) - e^x \right] \\
+            & = \lim_{y \to \infty} y \left[ \exp\left(y \left( \frac{x}{y} - \frac{x^2}{2y^2} +
+                \frac{x^3}{3y^3} - \cdots \right) \right) - e^x \right] \\
+            & = \lim_{y \to \infty} y \left[ e^x \cdot \exp\left(-\frac{x^2}{2y} + \frac{x^3}{3y^2}
+                - \cdots \right) - e^x \right] \\
+            & = \lim_{y \to \infty} y \left[ e^x \left(1 -\frac{x^2}{2y} + \frac{x^3}{3y^2} - \cdots
+                \right) - e^x \right] \\
+            & = \lim_{y \to \infty} e^x \left(-\frac{x^2}{2} + \frac{x^3}{3y} - \cdots \right) \\
+            & = -\frac{1}{2} e^x x^2
+      \end{align*}
+      Therefore, $\alpha = 0, a_1 = e^x, \beta = 1, a_2 = -\frac{1}{2} e^x x^2$.
+    \item Since $\sin(x + \vep x^2)$ is integrable on $[0,\vep]$, we can integrate its asymptotic
+      terms to get the desired equation. Computing the first two terms from the Taylor formulas
+      shows $b_1 = f(x, 0) = \sin(x)$ and the second term is computed as follows
+      \begin{align*}
+        \frac{\mathrm{d}}{\mathrm{d}\vep}f(x,\vep) & = x^2 \cos(x + \vep x^2) \\
+        b_2 & = x^2 \cos(x).
+      \end{align*}
+      So we have $\sin(x + \vep x^2) \sim \sin(x) + \vep x^2 \cos(x)$. Integrating term by term
+      yields 
+      \begin{align*}
+        f & \sim -\cos(x) \rvert_0^\vep + \vep \left[ x^2 \sin(x) + 2x \cos(x) - 2 \sin(x) \right]
+            \rvert_0^\vep + \cdots \\
+          & \sim 1 - \cos(\vep) + \vep^3 \sin(\vep) + 2\vep^2 \cos(\vep) - 2\vep\sin(\vep) + \cdots \\
+          & \sim 1 - (1 - \frac{\vep^2}{2} + \frac{\vep^4}{24} \cdots) + \vep^3 \left( \vep -
+            \frac{\vep^3}{6} + \cdots \right) + 2\vep^2 \left( 1 - \frac{\vep^2}{2} + \cdots \right) -
+            2 \vep \left( \vep - \frac{\vep^3}{6} + \cdots \right) + \cdots \\
+          & \sim \frac{1}{2} \vep^2 + \frac{7}{24} \vep^4 + \cdots
+      \end{align*}
+      Therefore, $\alpha = 2, a_1 = \frac{1}{2}, \beta = 4, a_2 = \frac{7}{24}$.
+    \item Starting by plugging in the Taylor series for $\sin\left(\frac{\vep}{n}\right)$ to get
+      \begin{align*}
+        f & \sim \sum_{n=1}^{\infty} \left(\frac{1}{2}\right)^n \left( \frac{\vep}{n} -
+            \frac{\vep^3}{6n^3} + \cdots \right) \\
+          & \sim \ln(2) \vep - \frac{\vep^3}{6} \sum_{n=1}^{\infty} \frac{1}{2^n n^3} + \cdots \\
+      \end{align*}
+      Therefore, $\alpha = 1, a_1 = \ln(2), \beta = 3, a_2 = -\frac{1}{6} \sum_{n=1}^{\infty}
+      \frac{1}{2^n n^3}$.
+    \item The expansion will be finite and exact in this case and we can just multiply it out
+      \begin{align*}
+        f & = 1 + \vep \sum_{k=0}^n k + \cdots \\
+          & = 1 + \vep \frac{n(n+1)}{2} + \cdots \\
+      \end{align*}
+      Therefore, $\alpha = 0, a_1 = 1, \beta = 1, a_2 = \frac{n(n+1)}{2}$.
+    \item Again we can apply an expansion and then integrate term by term
+      \begin{align*}
+        f & \sim \int_0^\pi \frac{\sin(x)}{\sqrt{1 + \vep x}} \mathrm{d}x \\
+          & \sim \int_0^\pi \sin(x) \left(1 - \frac{\vep x}{2} + \cdots \right) \mathrm{d}x \\
+          & \sim \int_0^\pi \sin(x) \mathrm{d}x - \frac{\vep}{2} \int_0^\pi x \sin(x)
+            \mathrm{d}x + \cdots \\
+          & \sim \left[-\cos(x)\right]_0^\pi - \frac{\vep}{2} \left[ -x \cos(x) + \sin(x) \right]_0^\pi
+            + \cdots \\
+          & \sim 2 - \frac{\pi}{2} \vep.
+      \end{align*}
+      Therefore, $\alpha = 0, a_1 = 2, \beta = 1, a_2 = -\frac{\pi}{2}$.
+  \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{problem}[1.12]
+  Suppose $f(\varepsilon) \sim a_0 \phi_0(\varepsilon) + a_1 \phi_1(\varepsilon) + \cdots$ and
+  $g(\varepsilon) \sim b_0 \phi_0(\varepsilon) + b_1 \phi_1(\varepsilon) + \cdots$ as $\varepsilon
+  \downarrow \varepsilon_0$, where $\phi_0, \phi_1, \phi_2, \dots$ is an asymptotic sequence as
+  $\varepsilon \downarrow \varepsilon_0$.
+  \begin{enumerate}
+    \item Show that $f + g \sim (a_0 + b_0)\phi_0 + (a_1 + b_1)\phi_1 + \cdots$ as $\varepsilon
+      \downarrow \varepsilon_0$.
+    \item Assuming $a_0 b_0 \neq 0$, show that $fg \sim a_0 b_0 \phi_0^2$ as $\varepsilon \downarrow
+      \varepsilon_0$. Also, discuss the possibilities for the next term in the expansion.
+    \item Suppose that $\phi_i \phi_j = \phi_{i+j}$ for all $i,j$. In this case show that
+      \[
+        fg \sim a_0 b_0 \phi_0 + (a_0 b_1 + a_1 b_0) \phi_1 + (a_0 b_2 + a_1 b_1 + a_2 b_0)\phi_2 +
+        \cdots \quad \text{as } \varepsilon \downarrow \varepsilon_0.
+      \]
+    \item Under what conditions on the exponents will the following be an asymptotic sequence
+      satisfying the condition in part (c): $\phi_0 = (\varepsilon - \varepsilon_0)^{\alpha},\
+      \phi_1 = (\varepsilon - \varepsilon_0)^{\beta},\ \phi_2 = (\varepsilon -
+      \varepsilon_0)^{\gamma},\ \dots$?
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+  \begin{enumerate}
+    \item The above form asymptotic expansions for $f$ and $g$ up to the $n^\text{th}$ term if and
+      only if
+      \[
+        f = \sum_{k=0}^{m} a_k \phi_k + o(\phi_m) \quad \text{for } m = 0, 1, 2, \dots, n \quad
+        \text{as } \varepsilon \downarrow \varepsilon_0,
+      \]
+      and
+      \[
+        g = \sum_{k=0}^{m} b_k \phi_k + o(\phi_m) \quad \text{for } m = 0, 1, 2, \dots, n \quad
+        \text{as } \varepsilon \downarrow \varepsilon_0.
+      \]
+      It follows that
+      \begin{align*}
+        f + g & = \sum_{k=0}^{m} (a_k + b_k) \phi_k + 2o(\phi_m) \\
+              & = \sum_{k=0}^{m} (a_k + b_k) \phi_k + o(\phi_m)
+      \end{align*}
+      for $m = 0, 1, 2 ,\dots, n$ since the constant factor of 2 does not affect the little-oh
+      asymptotic order term.
+    \item Similarly, we have
+      \begin{align*}
+        fg & = \left( \sum_{k=1}^{m} a_k \phi_k + o(\phi_m) \right) \left( \sum_{k=1}^{m} b_k \phi_k
+                + o(\phi_m) \right) \\
+           & = a_0b_0\phi_0^2 + (a_0b_1 + a_1b_0)\phi_0\phi_1 + a_1b_1\phi_1^2 + (a_0b_2 +
+                a_2b_0)\phi_0\phi_2 + \cdots + o(\phi_m)
+      \end{align*}
+      again for $m = 0, 1, \dots, n$. From this, we can confirm that $fg \sim a_0b_0\phi_0^2$. The
+      next term in the expansion would then depend on the relative ordering of higher terms like
+      $\phi_0\phi_2$ versus $\phi_1^2$.
+    \item This follows directly from the previous expansion:
+      \begin{align*}
+        fg & \sim a_0b_0\phi_0^2 + (a_0b_1 + a_1b_0)\phi_0\phi_1 + a_1b_1\phi_1^2 + (a_0b_2 +
+                a_2b_0)\phi_0\phi_2 + \cdots \\
+           & = a_0b_0\phi_{0+0} + (a_0b_1 + a_1b_0)\phi_{0+1} + a_1b_1\phi_{1+1} + (a_0b_2 +
+                a_2b_0)\phi_{0+2} + \cdots \\
+           & = a_0b_0\phi_0 + (a_0b_1 + a_1b_0)\phi_1 + (a_1b_1 + a_0b_2 + a_2b_0)\phi_2 + \cdots.
+      \end{align*}
+    \item For this condition to hold, the powers would have to follow an arithmetic sequence
+      starting at 0. So $\alpha = 0, \beta, \gamma = 2\beta, 3\beta \dots$
+  \end{enumerate} 
+\end{solution}
 
 \newpage
 \begin{problem}[1.18]
@@ -230,7 +462,18 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
   following equations:
   \begin{enumerate}
     \item $x^2 + x - \vep = 0$
+      First, look at the $0^th$ order terms $x_0^2 + x_0 = 0$. It follows that $x_0 = 0,-1$. Let's
+      proceed first with $x_0 = 0$. Then we can examine the first order equation
+      \[\vep^2 x_1^2 + \vep x_1 - \vep \sim \vep x_1 - \vep = 0 \]
+      and it follows that $x_1 = 1$. This first solution s then $x' \sim \vep$.
+
+      For the other root, we get
+      \[(-1 + \vep x_1)^2 + (-1 + \vep x_1) - \vep \sim 1 - 2\vep x_1 + \vep^2 x_1^2 - 1 + \vep x_1
+        - \vep \sim -\vep x_1 - \vep = 0 \]
+      which implies $x_1 = - 1$ and $x'' \sim - 1 - \vep$
     \item[(e)] $\vep x^3 -x + \vep = 0$
+      This becomes trickier since the standard zero order equation has a solution for the single
+      root around $x_0 = 0$. Looking at the first 
     \item[(h)] $x^2 + \vep \sqrt{2+x} = \cos(\vep)$
     \item[(p)] $xe^{-x} = \vep$
   \end{enumerate}
