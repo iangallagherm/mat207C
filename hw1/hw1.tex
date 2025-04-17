@@ -8,6 +8,7 @@
 \usepackage{fancyhdr}
 \usepackage{mathtools}
 \usepackage{multicol}
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black]{hyperref}
 
 % Page layout
 \geometry{margin=0.75in}
@@ -462,22 +463,101 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
   following equations:
   \begin{enumerate}
     \item $x^2 + x - \vep = 0$
-      First, look at the $0^th$ order terms $x_0^2 + x_0 = 0$. It follows that $x_0 = 0,-1$. Let's
-      proceed first with $x_0 = 0$. Then we can examine the first order equation
-      \[\vep^2 x_1^2 + \vep x_1 - \vep \sim \vep x_1 - \vep = 0 \]
-      and it follows that $x_1 = 1$. This first solution s then $x' \sim \vep$.
-
-      For the other root, we get
-      \[(-1 + \vep x_1)^2 + (-1 + \vep x_1) - \vep \sim 1 - 2\vep x_1 + \vep^2 x_1^2 - 1 + \vep x_1
-        - \vep \sim -\vep x_1 - \vep = 0 \]
-      which implies $x_1 = - 1$ and $x'' \sim - 1 - \vep$
-    \item[(e)] $\vep x^3 -x + \vep = 0$
-      This becomes trickier since the standard zero order equation has a solution for the single
-      root around $x_0 = 0$. Looking at the first 
+    \item[(e)] $\vep x^3 -3x + 1 = 0$
     \item[(h)] $x^2 + \vep \sqrt{2+x} = \cos(\vep)$
     \item[(p)] $xe^{-x} = \vep$
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  Find a two-term asymptotic expansion, for small $\vep$, of each solution $x$ of the
+  following equations:
+  \begin{enumerate}
+    \item $x^2 + x - \vep = 0$
+      \newline
+      First, look at the $O(1)$ terms $x_0^2 + x_0 = 0$. It follows that $x_0 =
+      0,-1$. Let's proceed first with $x_0 = 0$. Then we can examine the
+      $O(\vep)$ equation:
+      \[\vep^2 x_1^2 + \vep x_1 - \vep \sim \vep x_1 - \vep = 0 \]
+      and it follows that $x_1 = 1$. This first solution's asymptotic expansion
+      is then $x_r \sim \vep$.
+
+      For the other root, we get
+      \[
+        (-1 + \vep x_1)^2 + (-1 + \vep x_1) - \vep \sim 1 - 2\vep x_1 + \vep^2
+        x_1^2 - 1 + \vep x_1
+        - \vep \sim -\vep x_1 - \vep = 0
+      \]
+      which implies $x_1 = - 1$ and $x_l \sim - 1 - \vep$
+    \item[(e)] $\vep x^3 -3x + 1 = 0$
+      \newline
+      Looking at the naive $O(1)$ terms yields a single solution $a_0 = 1/3$.
+      Assuming $x \sim 1/3 + a_1 \vep^\alpha$, this yields,
+      \begin{align*}
+        \vep(1/3 + a_1 \vep^\alpha)^3 - 3(1/3 + a_1 \vep^\alpha) + 1 & \sim 0 \\
+        \frac{1}{27}\vep - 3a_1\vep^\alpha & \sim 0 \\
+        \Rightarrow \alpha = 1, a_1 & = \frac{1}{81}
+      \end{align*}
+      So we have $x \sim \frac{1}{3} + \frac{1}{81} \vep$ for this root.
+
+      For the other roots, assume $x \sim \lambda + r, \lambda \gg 1, r \ll
+      \lambda$. Plug this into the equation and we get
+      \begin{align*}
+        \vep(\lambda + r)^3 - 3(\lambda + r) + 1 & \sim 0 && \text{plugging in} \\
+        \vep\lambda^3 -3\lambda & \sim 0 && \text{taking leading order terms} \\
+        \Rightarrow \lambda & = \pm \sqrt{3}\vep^{-1/2} && \text{solve for first term} \\
+        3\vep\lambda^2r -3r + 1 & \sim 0 && \text{take next order terms} \\
+        9r - 3r + 1 & = 0 && \text{plug in } \lambda \\
+        \Rightarrow r & = - \frac{1}{6} && \text{solve for second term}
+      \end{align*}
+      These two roots are then $x \sim \pm \sqrt{3}\vep^{-1/2} - \frac{1}{6}$.
+    \item[(h)] $x^2 + \vep \sqrt{2+x} = \cos(\vep)$
+      \newline
+      Consider the leading order terms and get $a_0 = \pm 1$. Then we can assume
+      $x \sim \pm_1 + a_1 \vep^\alpha$ and plug this into the equation and drop
+      higher order terms to get
+      \begin{align*}
+        \pm 2 a_1 \vep^\alpha + \vep \sqrt{2 \pm 1 + a_1 \vep^\alpha} & \sim 0
+        \\
+        \pm 2 a_1 \vep^\alpha + \vep \sqrt{2 \pm 1} & \sim 0 \\
+        \Rightarrow \alpha = 1, a_1 = -\frac{\sqrt{2 \pm 1}}{\pm 2} & =
+        -\frac{\sqrt{3}}{2}, \frac{1}{2} \\
+      \end{align*}
+      Therefore, we get the two roots $x_l \sim 1 - \frac{\sqrt{3}}{2} \vep$ and
+      $x_r \sim -1 + \frac{1}{2} \vep$.
+    \item[(p)] $xe^{-x} = \vep$
+      \newline
+      For the O(1) term, $xe^{-x} = 0$ has a single solution $x_0 = 0$. Plugging
+      in $x \sim a_1 \vep^\alpha$ gives
+      \begin{align*}
+        a_1 \vep^\alpha e^{-a_1 \vep^\alpha} & = \vep \\
+        a_1 \vep^\alpha \left( 1 - a_1 \vep^\alpha + \cdots \right) & = \vep \\
+        a_1 \vep^\alpha & \sim \vep \\
+        \Rightarrow \alpha = 1, a_1 & = 1
+      \end{align*}
+      Now, plug in $x \sim \vep + a_2 \vep^\beta$ and get
+      \begin{align*}
+        (\vep + a_2\vep^\beta)(1 - \vep - a_2\vep^\beta) & \sim \vep \\
+        a_2 \vep^\beta - \vep^2 = 0 \\
+        \Rightarrow \beta = 2, a_2 & = 1
+      \end{align*}
+      So we get the asymptotic expansion at 0 $x_l \sim \vep + \vep^2$. There is
+      another solution away from $0$ that we can consider in this problem. The
+      trick involves carefully taking the log of both sides of the equation to
+      get $\ln(x) - x = \ln(\vep)$. For leading order terms, $\ln(x) \ll x$ and
+      we get a first term in the expansion $b_0 = -\ln(\vep)$. Assuming now that
+      $x \sim -\ln(\vep) + \mu$, we get
+      \[ \ln\left(-\ln(\vep) + \mu\right) - \left(-\ln(\vep) + \mu\right) =
+      \ln(\vep) \Rightarrow \ln\left(-\ln(\vep) + \mu\right) = \mu \]
+      Now, we can do some reworking of the logarithm terms
+      \[ \mu = \ln(-\ln(\vep) + \mu) = \ln\left(-\ln(\vep)(1 -
+      \frac{\mu}{\ln(\vep)})\right) = \ln(-\ln\vep) + \ln(1 -
+      \frac{\mu}{\ln\vep} \sim \ln(-\ln\vep) \]
+      Where the last term is valid due to the blow up of $\ln\vep$. So
+      altogether, we get the asymptotic expansion $x_r \sim -\ln(\vep)
+      +\ln(-\ln\vep)$.
+  \end{enumerate}
+\end{solution}
 
 \newpage
 \begin{problem}[1.19]
@@ -487,6 +567,38 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
     \item Find a two-term expansion of the root.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  \begin{enumerate}
+    \item There is one root for small $\vep$ because $1 + \abs{x}$ and $e^x$
+      cross at $x = 0$. The following image illustrates this:
+      \begin{center}
+        \includegraphics[width=.80\textwidth]{19.png}
+      \end{center}
+    \item It is helpful to rework the equation somewhat before attempting to
+      find the asymptotic expansion. We can make the following simplification:
+      \[ \vep = (e^x - 1)^2 - x^2 = (e^x - 1 - x)(e^x - 1 + x) \]
+      Plugging in $x \sim a_1 \vep^\alpha$ gives
+      \begin{align*}
+        \vep & \sim \left(\frac{1}{2}a_1^2\vep^{2\alpha}\right)\left(2a_1\vep^\alpha\right) \\
+        \vep & = a_1^3\vep^{3\alpha} \\
+             & \Rightarrow \alpha = 1/3, a_1 = 1
+      \end{align*}
+      We can proceed with plugging in $x \sim \vep^{1/3} + a_2 \vep^\beta$, but
+      first not that the left hand side can be expanded as follows:
+      \[ (e^x - 1 - x)(e^x - 1 + x) = \left( \frac{x^2}{2} + \frac{x^3}{6} +
+      \cdots \right)\left( 2x \frac{x^2}{2} + \cdots \right) = x^3 + x^4/3 +
+    x^4/4 + \cdots = x^3 + \frac{7}{12}x^4 + \cdots \]
+
+      This helps identify the next terms in the expansion:
+      \begin{align*}
+        0 & = 3a_2\vep^{2/3 + \beta} + \frac{7}{12}\vep^{4/3} \\
+        \Rightarrow \beta & = 2/3, a_2 = -\frac{7}{36}
+      \end{align*}
+      So the asymptotic expansion is $x \sim \vep^{1/3} -
+      \frac{7}{36}\vep^{2/3}$.
+  \end{enumerate}
+\end{solution}
 
 \newpage
 \begin{problem}[1.20]
@@ -498,6 +610,60 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
     \item $x = \tan\left(\frac{x}{\vep}\right)$.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  \begin{enumerate}
+    \item 
+      The function $\tanh(x/\vep)$ has two roots away from 0 as shown in the
+      included Figure $\ref{fig:20tanh}$. To find an expansion for this, we make
+      the change of variables $y = x/\vep$ and get $\vep y = \tanh y$. Then we
+      can assume that $y = \lambda + r$ with $\lambda \gg 1$ and $r \ll
+      \lambda$ (Solutions are large after making the transformation). Plugging
+      this in gives
+      \begin{align*}
+        \vep\lambda + \vep r & = \tanh(\lambda + r) \\
+                             & = \frac{e^{2(\lambda + r)} - 1}{e^{2(\lambda +
+        r)} + 1} \\
+                             & = 1 - \frac{2}{e^{2(\lambda + r)} + 1} \\
+      \end{align*}
+      For $\lambda \gg 1$, we get $\vep\lambda = 1 \Rightarrow \lambda =
+      \vep^{-1}$. Now we check the next order:
+      \begin{align*}
+        \vep r & \sim -\frac{2}{e^{2(\lambda + r)} + 1} \\
+               & \sim -2e^{-2r}e^{-2/\vep} \\
+               & \sim -2e^{-2/\vep} \\
+        \Rightarrow y & \sim \vep^{-1} -2\vep^{-1}e^{-2/\vep} \\
+        \Rightarrow x_r & \sim 1 -2e^{-2/\vep}
+      \end{align*}
+      By symmetry, we can also find the other root $x_l \sim -1 + 2e^{-2/\vep}$.
+    \item 
+      The function $\tan(x/\vep)$ has an infinite number of  roots away from 0
+      as shown in the included Figure $\ref{fig:20tan}$. To find an expansion
+      for this, we make the same change of variables to get $\vep y = \tan(y)$.
+      Then we guess that $y = a_0 + a_1\vep^\alpha$, but we can observe that
+      $a_0 = n\pi$ for $n \in \mathbb{Z}$. Plugging this in gives
+      \[ \vep n \pi = \tan(n\pi + a_1\vep^\alpha) = \tan(a_1\vep^\alpha) \sim
+      a_1\vep^\alpha. \]
+      So $\alpha = 1, a_1 = n\pi$. Now we can check the next order:
+      \[ \vep n \pi = \tan(n\pi + \vep n \pi + a_2 \vep^\beta) \sim
+      a_2\vep^\beta \]
+      \( \Rightarrow \beta = 2, a_2 = n\pi^2/3 \) and we get $y \sim n\pi(1 +
+      \vep + \vep^2)$, $x \sim n\pi(\vep + \vep^2 + \vep^3)$.
+  \end{enumerate}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{20_tanh.png}
+    \caption{Graph of $\tanh(x/\vep)$ and $x$}
+    \label{fig:20tanh}
+  \end{figure}
+  \begin{figure}
+    \centering
+    \includegraphics[width=.8\textwidth]{20_tan.png}
+    \caption{Graph of $\tan(x/\vep)$ and $x$}
+    \label{fig:20tan}
+  \end{figure}
+\end{solution}
 
 \newpage
 \begin{problem}[1.21]
@@ -512,6 +678,47 @@ Assuming $f \sim a_1 \vep^\alpha + a_2 \vep^\beta + \cdots$, find $\alpha, \beta
       nonzero and $\beta > 0$).
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  \begin{enumerate}
+    \item As can be seen in Figure \ref{fig:21}, since $\tan(x)$ is periodic and has
+      full range, there are infinitely many solutions to the equation since the
+      line $y = \lambda$ will cross each branch of the $\tan(x)$ function. The
+      crossing points for large $\lambda$ will be close to the vertical asymptotes
+      of the tangent function at $\lambda_k = \frac{1}{2}(2k-1)\pi$ for $k \in \mathbb{Z}$.
+      \begin{center}
+        \includegraphics[width=.80\textwidth]{19.png}
+        \label{fig:21}
+      \end{center}
+    \item For values of $\lambda$ near $\lambda_k$, we can expand sine and
+      cosine to get
+      \begin{align*}
+        \sin(\lambda) & \sim 1 - \frac{1}{2}(\lambda - \lambda_k)^2 \\
+        \cos(\lambda) & \sim 0 - (\lambda - \lambda_k) + \frac{1}{6}(\lambda -
+          \lambda_k)^3 \\
+        \Rightarrow \tan(\lambda) & \sim \frac{1 - \frac{1}{2}(\lambda -
+          \lambda_k)^2}{-(\lambda - \lambda_k) + \frac{1}{6}(\lambda -
+          \lambda_k)^3} \\
+            & \sim -\frac{1}{\lambda - \lambda_k} \cdot \frac{1 - \frac{1}{2}(\lambda
+              - \lambda_k)^2}{1 - \frac{1}{6}(\lambda -
+              \lambda_k)^2} \\
+            & \sim -\frac{1}{\lambda - \lambda_k} \left[ 1 - \frac{1}{3}(\lambda -
+              \lambda_k)^2 \right] \\
+      \end{align*}
+      For large solutions, we know from the picture that $\lambda \sim
+      \lambda_k$, so we can assume $\lambda \sim \lambda_k + \mu$ where $\mu \ll
+      \lambda_k$. Then the previous calculation gives 
+      \begin{align*}
+        \lambda_k + \mu \sim \frac{-1}{\mu} & \sim (1 - \frac{1}{3}\mu^2) \\
+        \lambda_k\mu + \mu^2 & \sim -1 + \frac{1}{3}\mu^2 \\
+      \end{align*}
+      which, after dropping higher order terms, implies that $\mu =
+      -\frac{1}{\lambda_k}$. Therefore, we have the asymptotic expansion up to
+      two terms $\lambda \sim \lambda_k - \frac{1}{\lambda_k}$.
+
+
+  \end{enumerate}
+\end{solution}
 
 \end{document}
 
