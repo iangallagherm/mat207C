@@ -1,0 +1,128 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+\setlength{\parskip}{0ex}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{13pt}
+\setlength{\footskip}{13pt}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{MAT 207C}
+\lhead{Homework 4}
+\rfoot{\thepage}
+
+\title{MAT 207C: Homework 4}
+\author{Ian Gallagher}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Problem 2.2}
+Find a composite expansion of the solution of the following problems:
+\begin{enumerate}[label=(\alph*)]
+  \setcounter{enumi}{2}
+  \item $\varepsilon y'' + y(y' + 3) = 0$ for $0 < x < 1$, with $y(0) = 1$ and
+    $y(1) = 1$.
+
+  \item $\varepsilon y'' = f(x) - y'$ for $0 < x < 1$, with $y(0) = 0$ and $y(1)
+    = 1$. Also, $f(x)$ is continuous.
+\end{enumerate}
+
+\subsection*{Problem 2.3}
+Consider the problem
+\[
+\varepsilon^2 y'' + a y' = x^2 \quad \text{for } 0 < x < 1,
+\]
+with $y'(0) = \lambda$, $y(1) = 2$, where $a$ and $\lambda$ are positive constants.
+\begin{enumerate}[label=(\alph*)]
+  \item Find a first-term composite expansion for the solution. Explain why the
+    approximation does not depend on $\lambda$.
+\end{enumerate}
+
+\subsection*{Problem 2.4}
+A small parameter multiplying the highest derivative does not guarantee that the
+solution will have a boundary layer for small values of $\varepsilon$. As
+demonstrated in this problem, this can be due to the form of the differential
+equation or the particular boundary conditions used in the problem.
+\begin{enumerate}[label=(\alph*)]
+  \setcounter{enumi}{1}
+  \item Consider the equation $\varepsilon^2 y'' - x y' = 0$ for $0 < x < 1$.
+    From the exact solution, show that there is no boundary layer if the
+    boundary conditions are $y(0) = y(1) = 2$, while there is a boundary layer
+    if the boundary conditions are $y(0) = 1$ and $y(1) = 2$.
+\end{enumerate}
+
+\subsection*{Problem 2.9}
+Consider the problem
+\[
+\varepsilon y'' + p(x)y' + q(x)y = f(x), \quad 0 < x < 1,
+\]
+with $y(0) = \alpha$ and $y(1) = \beta$. Assume $p(x), q(x)$, and $f(x)$ are
+continuous and $p(x) > 0$ for $0 \le x \le 1$.
+\begin{enumerate}[label=(\alph*)]
+  \item In the case where $f = 0$, show that
+  \[
+  y \sim \beta \exp\left( \int_x^1 \frac{q(s)}{p(s)}\, ds \right) + \left[
+  \alpha - \beta \exp\left( \int_0^1 \frac{q(s)}{p(s)}\, ds \right) \right]
+  h(x),
+  \]
+  where $h(x) = e^{-p(0)x/\varepsilon}$.
+\end{enumerate}
+
+\subsection*{Problem 2.10}
+Consider the problem
+\[
+\varepsilon y'' + 6\sqrt{x}y' - 3y = -3, \quad 0 < x < 1,
+\]
+with $y(0) = 0$ and $y(1) = 3$.
+\begin{enumerate}[label=(\alph*)]
+  \item Find a composite expansion of the problem.
+\end{enumerate}
+
+\subsection*{Problem 2.15}
+Find a composite expansion of the solution of the following problems
+and sketch the solution:
+\begin{enumerate}[label=(\alph*)]
+  \setcounter{enumi}{1}
+  \item $\varepsilon y'' - y' + y^2 = 1$ for $0 < x < 1$, with $y(0) = 1/3$,
+    $y(1) = 1$.
+  
+  \setcounter{enumi}{4}
+  \item $\varepsilon y'' - y(y' + 1) = 0$ for $0 < x < 1$, with $y(0) = 3$,
+    $y(1) = 3$.
+\end{enumerate}
+
+\subsection*{Problem 2.32}
+Find a first-term expansion of the solution of each of the following
+problems. It should not be unexpected that for the nonlinear problems the
+solutions are defined implicitly or that the transition layer contains an unde-
+termined constant.
+\begin{enumerate}[label=(\alph*)]
+  \item $\varepsilon y'' = -\left(x^2 - \tfrac{1}{4} \right)y'$ for $0 < x < 1$,
+    with $y(0) = 1$ and $y(1) = -1$.
+
+  \setcounter{enumi}{5}
+  \item $\varepsilon y'' + y(y' + 3) = 0$ for $0 < x < 1$, with $y(0) = -1$ and
+    $y(1) = 2$.
+\end{enumerate}
+
+\subsection*{Problem 2.33}
+Consider the problem
+\[
+\varepsilon y'' = y y' \quad \text{for } 0 < x < 1,
+\]
+with $y(0) = a$ and $y(1) = -a$, where $a > 0$.
+\begin{enumerate}[label=(\alph*)]
+  \setcounter{enumi}{1}
+  \item Find a composite expansion of the solution.
+\end{enumerate}
+
+\end{document}
